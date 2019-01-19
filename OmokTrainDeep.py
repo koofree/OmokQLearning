@@ -7,6 +7,9 @@ import numpy as np
 import random
 import math
 import os
+import builtins
+
+xrange = builtins.range
 
 
 
@@ -61,10 +64,10 @@ h_pool2 = tf.nn.max_pool(h_conv2_cutoff, ksize = [1, 2, 2, 1], strides = [1, 2, 
 
 # 완전 연결 레이어
 h_pool2_size = gridSize / 2 / 2	# 풀링 두번으로 사이즈 축소
-h_pool2_flat = tf.reshape(h_pool2, [-1, h_pool2_size * h_pool2_size * filter2_num])
+h_pool2_flat = tf.reshape(h_pool2, [-1, int(h_pool2_size * h_pool2_size * filter2_num)])
 units1_num = h_pool2_size * h_pool2_size * filter2_num
 units2_num = 1024
-w2 = tf.Variable(tf.truncated_normal([units1_num, units2_num]))
+w2 = tf.Variable(tf.truncated_normal([int(units1_num), units2_num]))
 b2 = tf.Variable(tf.constant(0.1, shape = [units2_num]))
 hidden2 = tf.nn.relu(tf.matmul(h_pool2_flat, w2) + b2)
 keep_prob = tf.placeholder(tf.float32)

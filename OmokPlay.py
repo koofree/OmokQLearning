@@ -10,6 +10,9 @@ import math
 import os
 import sys
 import time
+import builtins
+
+xrange = builtins.range
 
 
 
